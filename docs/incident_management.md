@@ -19,6 +19,7 @@ Retrieves a list of incidents from ServiceNow.
 - `offset` (int, default: 0): Offset for pagination
 - `state` (string, optional): Filter by incident state
 - `assigned_to` (string, optional): Filter by assigned user
+- `caller_id` (string, optional): Filter by caller
 - `category` (string, optional): Filter by category
 - `query` (string, optional): Search query for incidents
 

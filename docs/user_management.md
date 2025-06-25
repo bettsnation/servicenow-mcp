@@ -107,6 +107,7 @@ Gets a specific user from ServiceNow.
 | user_id | string | No | User ID or sys_id |
 | user_name | string | No | Username of the user |
 | email | string | No | Email address of the user |
+| phone | string | No | Phone number of the user |
 
 **Note**: At least one of the parameters must be provided.
 

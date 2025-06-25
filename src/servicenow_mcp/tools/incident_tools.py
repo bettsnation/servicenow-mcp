@@ -73,6 +73,7 @@ class ListIncidentsParams(BaseModel):
     offset: int = Field(0, description="Offset for pagination")
     state: Optional[str] = Field(None, description="Filter by incident state")
     assigned_to: Optional[str] = Field(None, description="Filter by assigned user")
+    caller_id: Optional[str] = Field(None, description="Filter by caller")
     category: Optional[str] = Field(None, description="Filter by category")
     query: Optional[str] = Field(None, description="Search query for incidents")
 
@@ -480,8 +481,13 @@ def list_incidents(
     filters = []
     if params.state:
         filters.append(f"state={params.state}")
-    if params.assigned_to:
+    # Mutually aware OR logic for assigned_to and caller_id
+    if params.assigned_to and params.caller_id:
+        filters.append(f"(assigned_to={params.assigned_to}^ORcaller_id={params.caller_id})")
+    elif params.assigned_to:
         filters.append(f"assigned_to={params.assigned_to}")
+    elif params.caller_id:
+        filters.append(f"caller_id={params.caller_id}")
     if params.category:
         filters.append(f"category={params.category}")
     if params.query:

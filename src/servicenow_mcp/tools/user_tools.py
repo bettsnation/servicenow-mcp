@@ -59,6 +59,7 @@ class GetUserParams(BaseModel):
     user_id: Optional[str] = Field(None, description="User ID or sys_id")
     user_name: Optional[str] = Field(None, description="Username of the user")
     email: Optional[str] = Field(None, description="Email address of the user")
+    phone: Optional[str] = Field(None, description="Phone number of the user")
 
 
 class ListUsersParams(BaseModel):
@@ -326,6 +327,8 @@ def get_user(
         query_params["sysparm_query"] = f"user_name={params.user_name}"
     elif params.email:
         query_params["sysparm_query"] = f"email={params.email}"
+    elif params.phone:
+        query_params["sysparm_query"] = f"phone={params.phone}^ORmobile_phone={params.phone}"
     else:
         return {"success": False, "message": "At least one search parameter is required"}
 
